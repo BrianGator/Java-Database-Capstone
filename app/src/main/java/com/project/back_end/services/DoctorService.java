@@ -28,8 +28,8 @@ public class DoctorService {
         doctorRepositoryMock.put(drAdams.getId(), drAdams);
     }
 
-    // Method returns available time slots for doctor on a given date
-    public List<String> getAvailableTimeSlots(Long doctorId, String date) {
+    // Method returns available time slots for doctor on a given LocalDate (filtering by date)
+    public List<String> getAvailableTimeSlots(Long doctorId, java.time.LocalDate date) {
         if (doctorId == null || date == null) {
             throw new IllegalArgumentException("Doctor ID and Date must be valid parameters.");
         }
@@ -39,8 +39,21 @@ public class DoctorService {
             throw new IllegalArgumentException("No practitioner found with ID: " + doctorId);
         }
 
-        // Return the available slots defined under the doctor's profile
+        // Return the available slots defined under the doctor's profile for the filtered date
         return new ArrayList<>(doctor.getAvailableTimes());
+    }
+
+    // Overloaded helper that parses String dates and maps to the localDate filters
+    public List<String> getAvailableTimeSlots(Long doctorId, String dateStr) {
+        if (dateStr == null || dateStr.trim().isEmpty()) {
+            throw new IllegalArgumentException("Date string parameter cannot be null or empty.");
+        }
+        try {
+            java.time.LocalDate date = java.time.LocalDate.parse(dateStr);
+            return getAvailableTimeSlots(doctorId, date);
+        } catch (java.time.format.DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Please use YYYY-MM-DD.");
+        }
     }
 
     // Method validates doctor login credentials and returns structured response

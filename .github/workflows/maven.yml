@@ -21,5 +21,9 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Compile and Build with Maven
-      run: mvn -B package --file pom.xml -DskipTests
+    - name: Compile and Build with Maven Wrapper in Backend Directory
+      run: |
+        cd app
+        chmod +x mvnw || true
+        ./mvnw -B package -DskipTests || mvn -B package -DskipTests
+
