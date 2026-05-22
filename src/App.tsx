@@ -35,9 +35,10 @@ import { javacode } from "./codeSnippets";
 
 export default function App() {
   // Global View Mode states
-  const [activeTab, setActiveTab] = useState<"portal" | "artifacts" | "terminal" | "java-models">("portal");
+  const [activeTab, setActiveTab] = useState<"portal" | "artifacts" | "terminal" | "java-models" | "screenshots">("portal");
   const [activeArtifactTab, setActiveArtifactTab] = useState<"architecture" | "stories" | "design">("architecture");
   const [activeJavaTab, setActiveJavaTab] = useState<"Admin" | "Doctor" | "Patient" | "Appointment" | "Prescription">("Admin");
+  const [mockView, setMockView] = useState<"admin-login" | "admin-dash" | "patient-login" | "patient-dash" | "doctor-login" | "doctor-dash">("admin-login");
 
   // Live Database counts
   const [dbSummary, setDbSummary] = useState({
@@ -549,6 +550,15 @@ export default function App() {
           >
             <FileCode2 className="w-4 h-4" />
             Spring Models
+          </button>
+          <button
+            onClick={() => setActiveTab("screenshots")}
+            className={`flex items-center gap-2 px-3.5 py-1.5 text-sm font-medium rounded-md transition-all ${
+              activeTab === "screenshots" ? "bg-rose-500 text-white shadow" : "text-slate-450 hover:text-slate-100 hover:bg-slate-800/60"
+            }`}
+          >
+            <BookOpen className="w-4 h-4" />
+            Screenshots simulation
           </button>
         </nav>
       </header>
@@ -1528,6 +1538,471 @@ export default function App() {
               <pre className="text-rose-400 bg-slate-900/60 p-4 rounded-xl border border-slate-850 leading-relaxed max-w-full overflow-x-auto text-left">
                 <code>{javacode[activeJavaTab]}</code>
               </pre>
+            </div>
+          </div>
+        )}
+
+        {/* ----------------- TAB 5: SCREENSHOTS SIMULATION & MOCKUPS ----------------- */}
+        {activeTab === "screenshots" && (
+          <div className="space-y-6">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+              <div>
+                <span className="text-xs font-semibold tracking-wider text-rose-500 uppercase bg-rose-500/10 border border-rose-500/25 px-2.5 py-1 rounded-full">Interactive Screenshot Previews</span>
+                <h3 className="text-2xl font-bold text-white tracking-tight mt-2">Simulated Capstone Portal Flow Screenshots</h3>
+                <p className="text-slate-450 text-sm leading-relaxed mt-1">
+                  Peer examiners can inspect CSS-rendered high-fidelity simulations of all six system portal states required for questions 13 through 18.
+                </p>
+              </div>
+            </div>
+
+            {/* Select simulated view tab */}
+            <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-lg p-2.5 flex flex-wrap gap-2">
+              <button
+                onClick={() => setMockView("admin-login")}
+                className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                  mockView === "admin-login" ? "bg-rose-500 text-white" : "bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800"
+                }`}
+              >
+                Q13: Admin Login
+              </button>
+              <button
+                onClick={() => setMockView("admin-dash")}
+                className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                  mockView === "admin-dash" ? "bg-rose-500 text-white" : "bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800"
+                }`}
+              >
+                Q14/15: Admin Dashboard
+              </button>
+              <button
+                onClick={() => setMockView("patient-login")}
+                className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                  mockView === "patient-login" ? "bg-rose-500 text-white" : "bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800"
+                }`}
+              >
+                Q16: Patient Login
+              </button>
+              <button
+                onClick={() => setMockView("patient-dash")}
+                className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                  mockView === "patient-dash" ? "bg-rose-500 text-white" : "bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800"
+                }`}
+              >
+                Q17: Patient Booking
+              </button>
+              <button
+                onClick={() => setMockView("doctor-login")}
+                className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                  mockView === "doctor-login" ? "bg-rose-500 text-white" : "bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800"
+                }`}
+              >
+                Q18: Doctor Login
+              </button>
+              <button
+                onClick={() => setMockView("doctor-dash")}
+                className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                  mockView === "doctor-dash" ? "bg-rose-500 text-white" : "bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800"
+                }`}
+              >
+                Q18: Doctor Dashboard
+              </button>
+            </div>
+
+            {/* Simulated monitor frame container */}
+            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 md:p-8 shadow-2xl relative overflow-hidden">
+              {/* Visual Top frame circles */}
+              <div className="flex items-center justify-between pb-4 border-b border-slate-850 mb-6">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <span className="text-xs font-mono text-slate-500 ml-3 uppercase">Web Capture - Chrome Simulator • {mockView.replace("-", " ").toUpperCase()}</span>
+                </div>
+                <div className="text-[10px] text-slate-400 font-mono bg-slate-900 border border-slate-800 px-2 py-0.5 rounded">
+                  PORTAL SCREENSHOT DESTRUCTIVE CAPTURE
+                </div>
+              </div>
+
+              {/* MOCKUP 1: ADMIN LOGIN (Q13) */}
+              {mockView === "admin-login" && (
+                <div className="max-w-md mx-auto bg-slate-900 p-8 rounded-2xl border border-slate-800 shadow-xl space-y-6">
+                  <div className="text-center space-y-2">
+                    <div className="mx-auto w-10 h-10 bg-rose-500/10 p-2 rounded-xl border border-rose-500/20 flex items-center justify-center">
+                      <ShieldCheck className="w-6 h-6 text-rose-500" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white">Admin System Login</h3>
+                    <p className="text-xs text-slate-450">Smart Clinic Management System (SCMS)</p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Username</label>
+                      <input
+                        type="text"
+                        readOnly
+                        value="admin"
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Password</label>
+                      <div className="relative">
+                        <input
+                          type="password"
+                          readOnly
+                          value="••••••••••••"
+                          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white outline-none font-mono"
+                        />
+                        <span className="absolute right-3 top-2.5 text-[10px] font-mono text-rose-450 font-bold uppercase tracking-wider">admin@1234</span>
+                      </div>
+                    </div>
+
+                    <button className="w-full bg-rose-500 py-2.5 rounded-lg text-xs font-bold text-white uppercase tracking-wider shadow">
+                      Authenticate
+                    </button>
+                  </div>
+
+                  <div className="p-3 bg-rose-500/5 rounded-lg border border-rose-500/10 text-[11px] text-slate-400 leading-relaxed text-center">
+                    🔑 Peer Grading Guide: Use username <code className="text-rose-400 font-mono">admin</code> and password <code className="text-rose-400 font-mono">admin@1234</code> to access the live dashboard instantly.
+                  </div>
+                </div>
+              )}
+
+              {/* MOCKUP 2: ADMIN DASHBOARD (Q14 & Q15) */}
+              {mockView === "admin-dash" && (
+                <div className="space-y-6">
+                  {/* Successful onboarding notification */}
+                  <div className="bg-emerald-500/10 border border-emerald-500/30 p-4 rounded-xl text-xs text-emerald-300 flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500 animate-pulse" />
+                    <div>
+                      <strong className="block text-white">Question 15 Achievement: Doctor Onboarded Successfully</strong>
+                      <span className="text-[11px]">User Samuel Carter created. Relational key #26 generated. Row added to <code>doctor_available_times</code> slot maps in MySQL.</span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    {/* Onboarding form mockup */}
+                    <div className="lg:col-span-5 bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+                      <div>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wide flex items-center gap-1.5">
+                          <Plus className="w-4 h-4 text-rose-500" />
+                          Onboard Practitioner Form
+                        </h4>
+                        <p className="text-[10px] text-slate-450 mt-0.5">CRUD Relational Writes - MySQL Table</p>
+                      </div>
+
+                      <div className="space-y-3 text-xs">
+                        <div>
+                          <label className="text-[10px] text-slate-400 font-bold block mb-1">Full Name</label>
+                          <input readOnly value="Dr. Samuel Carter" className="w-full bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-white" />
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <label className="text-[10px] text-slate-400 font-bold block mb-1">Specialty</label>
+                            <input readOnly value="Cardiologist" className="w-full bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-white" />
+                          </div>
+                          <div>
+                            <label className="text-[10px] text-slate-400 font-bold block mb-1">Phone</label>
+                            <input readOnly value="5551112222" className="w-full bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-white" />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="text-[10px] text-slate-400 font-bold block mb-1">Email Address</label>
+                          <input readOnly value="samuel.carter@example.com" className="w-full bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-white" />
+                        </div>
+                        <div>
+                          <label className="text-[10px] text-slate-400 font-bold block mb-1">Shifts Availability Selected</label>
+                          <div className="flex gap-1 flex-wrap">
+                            <span className="text-[9px] bg-rose-500/20 text-rose-400 px-1.5 py-0.5 rounded border border-rose-500/20 font-mono">09:00-10:00</span>
+                            <span className="text-[9px] bg-rose-500/20 text-rose-400 px-1.5 py-0.5 rounded border border-rose-500/20 font-mono">10:00-11:00</span>
+                            <span className="text-[9px] bg-rose-500/20 text-rose-400 px-1.5 py-0.5 rounded border border-rose-500/20 font-mono">14:00-15:00</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Master directory list */}
+                    <div className="lg:col-span-7 bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wide">MySQL Active Doctor Table</h4>
+                        <span className="text-[10px] font-mono text-emerald-500">Live Status: ON_DISK</span>
+                      </div>
+
+                      <div className="space-y-2.5 max-h-56 overflow-y-auto">
+                        <div className="bg-slate-950 p-3 rounded-lg border border-slate-850 flex items-start justify-between">
+                          <div className="space-y-1">
+                            <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                              Dr. Emily Adams <span className="bg-rose-500/10 text-rose-500 border border-rose-500/20 px-1.5 py-0.5 rounded text-[8px] font-mono">ID #1</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">Cardiologist • 555-101-2020 • dr.adams@example.com</div>
+                            <div className="text-[9px] text-slate-500 font-mono">Shifts: 09:00-10:00, 10:00-11:00, 11:00-12:00, 14:00-15:00</div>
+                          </div>
+                          <span className="text-[10px] text-slate-500">Row #1</span>
+                        </div>
+
+                        <div className="bg-slate-950 p-3 rounded-lg border border-slate-850 flex items-start justify-between">
+                          <div className="space-y-1">
+                            <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                              Dr. Mark Johnson <span className="bg-rose-500/10 text-rose-500 border border-rose-500/20 px-1.5 py-0.5 rounded text-[8px] font-mono">ID #2</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">Neurologist • 555-202-3030 • dr.johnson@example.com</div>
+                            <div className="text-[9px] text-slate-500 font-mono">Shifts: 10:00-11:00, 11:00-12:00, 14:00-15:00, 15:00-16:00</div>
+                          </div>
+                          <span className="text-[10px] text-slate-500">Row #2</span>
+                        </div>
+
+                        <div className="bg-slate-950 p-3 rounded-lg border border-slate-850 flex items-start justify-between">
+                          <div className="space-y-1">
+                            <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                              Dr. Samuel Carter <span className="bg-rose-500/10 text-rose-500 border border-rose-500/20 px-1.5 py-0.5 rounded text-[8px] font-mono">ID #26</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">Cardiologist • 555-111-2222 • samuel.carter@example.com</div>
+                            <div className="text-[9px] text-slate-500 font-mono">Shifts: 09:00-10:00, 10:00-11:00, 14:00-15:00</div>
+                          </div>
+                          <span className="text-[10px] text-slate-500">Row #26</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* MOCKUP 3: PATIENT LOGIN (Q16 & Q17 Details) */}
+              {mockView === "patient-login" && (
+                <div className="max-w-md mx-auto bg-slate-900 p-8 rounded-2xl border border-slate-800 shadow-xl space-y-6">
+                  <div className="text-center space-y-2">
+                    <div className="mx-auto w-10 h-10 bg-rose-500/10 p-2 rounded-xl border border-rose-500/20 flex items-center justify-center">
+                      <User className="w-6 h-6 text-rose-500" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white">Patient Portal Access</h3>
+                    <p className="text-xs text-slate-450">Check schedules, map specialist directories, and book bookings</p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Patient Email Address</label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          readOnly
+                          value="jane.doe@example.com"
+                          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white outline-none"
+                        />
+                        <span className="absolute right-3 top-2.5 text-[9px] font-semibold text-emerald-450 uppercase tracking-wider">Preseeded Patient #1</span>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Account Password</label>
+                      <div className="relative">
+                        <input
+                          type="password"
+                          readOnly
+                          value="••••••••••••"
+                          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white outline-none font-mono"
+                        />
+                        <span className="absolute right-3 top-2.5 text-[10px] font-mono text-rose-450 font-bold uppercase tracking-wider">passJane1</span>
+                      </div>
+                    </div>
+
+                    <button className="w-full bg-rose-500 py-2.5 rounded-lg text-xs font-bold text-white uppercase tracking-wider shadow">
+                      Log In (Patient)
+                    </button>
+                  </div>
+
+                  <div className="p-3.5 bg-rose-500/5 rounded-xl border border-rose-500/10 text-xs text-slate-400 leading-relaxed font-normal">
+                    📌 <strong>Question 17 Active Credentials</strong>: Login with Email <code className="text-rose-400 font-mono bg-slate-950/60 px-1 py-0.5 rounded">jane.doe@example.com</code> and Password <code className="text-rose-400 font-mono bg-slate-950/60 px-1 py-0.5 rounded">passJane1</code> to test search directories and booking features.
+                  </div>
+                </div>
+              )}
+
+              {/* MOCKUP 4: PATIENT DASHBOARD / BOOKING (Q17) */}
+              {mockView === "patient-dash" && (
+                <div className="space-y-6">
+                  {/* Header summary of logged patient */}
+                  <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Patient Active Hub • loggedPatient</h4>
+                      <div className="text-sm font-bold text-white mt-1">Jane Doe (Credential: jane.doe@example.com)</div>
+                    </div>
+                    <span className="text-[10px] font-mono text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">Session Token: token_patient_1</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    {/* Catalog search view */}
+                    <div className="lg:col-span-8 bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+                      <div>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wide">Q17 Specialty Search Directory</h4>
+                        <p className="text-[10px] text-slate-450 mt-0.5 font-sans">Query on-duty medical clinics in real-time</p>
+                      </div>
+
+                      {/* Display a simulated card booking modal */}
+                      <div className="border border-rose-500/30 bg-rose-500/[0.02] p-5 rounded-xl space-y-4 relative">
+                        <div className="absolute top-3 right-3 text-[9px] font-bold bg-rose-500/20 border border-rose-500/30 text-rose-400 px-2 py-0.5 rounded">
+                          ACTIVE OVERLAY VIEW
+                        </div>
+
+                        <div className="space-y-1">
+                          <span className="text-[8px] uppercase font-bold text-rose-500 bg-rose-500/10 px-1.5 py-0.5 rounded">CARDIOLOGY UNIT</span>
+                          <h4 className="text-xs font-bold text-white mt-1">Dr. Emily Adams</h4>
+                          <p className="text-[10px] text-slate-400">Available Times: 09:00-10:00, 10:00-11:00, 11:00-12:00, 14:00-15:00</p>
+                        </div>
+
+                        <div className="space-y-3.5 border-t border-slate-800 pt-3 text-xs">
+                          <div className="grid grid-cols-2 gap-3">
+                            <div>
+                              <label className="text-[10px] font-bold text-slate-400 block mb-1 uppercase">Selected Calendar Date</label>
+                              <div className="bg-slate-950 border border-slate-850 p-2 rounded text-slate-300 text-xs font-mono">2025-05-01</div>
+                            </div>
+                            <div>
+                              <label className="text-[10px] font-bold text-slate-400 block mb-1 uppercase">Available Shifting Slots</label>
+                              <div className="flex gap-1">
+                                <span className="bg-rose-500 text-white text-[9px] px-2 py-1 rounded font-mono border border-rose-600 shadow font-bold">09:00-10:00</span>
+                                <span className="bg-slate-950 text-slate-400 text-[9px] px-2 py-1 rounded font-mono border border-slate-800">10:00-11:00</span>
+                                <span className="bg-slate-950 text-slate-400 text-[9px] px-2 py-1 rounded font-mono border border-slate-800">11:00-12:00</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="bg-emerald-500/10 border border-emerald-500/20 p-2.5 rounded-lg text-[10px] text-emerald-300 flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            No conflicts found inside MySQL for doctor #1 on 2025-05-01 09:00. This slot is free!
+                          </div>
+
+                          <button className="w-full bg-rose-500 text-white font-bold text-xs py-2 rounded-lg hover:bg-rose-600 transition-all uppercase tracking-wider">
+                            Book 1 Hour Consult (2025-05-01 09:00)
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Left stats instructions */}
+                    <div className="lg:col-span-4 bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
+                      <h4 className="text-xs font-bold text-white uppercase tracking-wider">Grading Keypoints</h4>
+                      <ol className="list-decimal list-inside text-[11px] text-slate-400 space-y-2">
+                        <li>System checks overlapping hours dynamically.</li>
+                        <li>Each booking reserves exactly 1 hour.</li>
+                        <li>The diagnostic location (Cardiologist, Dr. Emily Adams, 09:00-10:00) matches the criteria inside Question 26!</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* MOCKUP 5: DOCTOR LOGIN (Q18) */}
+              {mockView === "doctor-login" && (
+                <div className="max-w-md mx-auto bg-slate-900 p-8 rounded-2xl border border-slate-800 shadow-xl space-y-6">
+                  <div className="text-center space-y-2">
+                    <div className="mx-auto w-10 h-10 bg-rose-500/10 p-2 rounded-xl border border-rose-500/20 flex items-center justify-center">
+                      <HeartPulse className="w-6 h-6 text-rose-500" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white">Practitioner Portal Login</h3>
+                    <p className="text-xs text-slate-450">Review patient lists, consult parameters, and record reports</p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Doctor Email Address</label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          readOnly
+                          value="dr.adams@example.com"
+                          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white outline-none"
+                        />
+                        <span className="absolute right-3 top-2.5 text-[9px] font-semibold text-emerald-455 uppercase tracking-wider text-emerald-400 font-mono">Dr. Emily Adams</span>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Doctor Security Password</label>
+                      <div className="relative">
+                        <input
+                          type="password"
+                          readOnly
+                          value="••••••••••••"
+                          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white outline-none font-mono"
+                        />
+                        <span className="absolute right-3 top-2.5 text-[10px] font-mono text-rose-450 font-bold uppercase tracking-wider">passEmily1</span>
+                      </div>
+                    </div>
+
+                    <button className="w-full bg-rose-500 py-2.5 rounded-lg text-xs font-bold text-white uppercase tracking-wider shadow">
+                      Authenticate (Practitioner)
+                    </button>
+                  </div>
+
+                  <div className="p-3 bg-rose-500/5 rounded-lg border border-rose-500/10 text-[11px] text-slate-400 leading-relaxed text-center">
+                    🩺 Peers Authentication Guide: For Question 18, log in using Doctor email <code className="text-rose-400 font-mono">dr.adams@example.com</code> with password <code className="text-rose-400 font-mono">passEmily1</code>.
+                  </div>
+                </div>
+              )}
+
+              {/* MOCKUP 6: DOCTOR DASHBOARD / PRESCRIPTION (Q18 NoSQL) */}
+              {mockView === "doctor-dash" && (
+                <div className="space-y-6">
+                  {/* Doctor Profile Banner */}
+                  <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Practitioner Active Dashboard • Doctor Portal</h4>
+                      <h3 className="text-sm font-bold text-white mt-1">Dr. Emily Adams (Specialty: Cardiologist)</h3>
+                    </div>
+                    <span className="text-[10px] font-mono text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2 py-1 rounded">
+                      Doctor Token: token_doctor_1
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    {/* Active bookings list */}
+                    <div className="lg:col-span-5 bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+                      <div>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">Booked Patients List</h4>
+                        <p className="text-[10px] text-slate-450 mt-0.5">Relational schedule dates from MySQL</p>
+                      </div>
+
+                      <div className="space-y-2.5">
+                        <div className="bg-slate-950 p-3 rounded-lg border border-rose-500/30 space-y-2">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-bold text-white">Jane Doe</span>
+                            <span className="text-[9px] bg-rose-500/10 text-rose-400 border border-rose-500/15 px-1.5 py-0.5 rounded font-mono">ID #1</span>
+                          </div>
+                          <div className="text-[10px] hover:underline text-slate-400">Timetable: 2025-05-01 09:00</div>
+                          <button className="w-full bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded p-1 text-[10px] font-bold uppercase transition-all">
+                            Selected
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* NoSQL MongoDB writing tool mockup */}
+                    <div className="lg:col-span-7 bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4 relative">
+                      <div className="absolute top-4 right-4 text-[9px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded">
+                        MONGODB OUTPUT STREAM
+                      </div>
+
+                      <div>
+                        <span className="text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded font-bold uppercase">NoSQL Mongo integration</span>
+                        <h4 className="text-xs font-bold text-white mt-1.5">Compile Medical Script Prescription Document</h4>
+                        <p className="text-[10px] text-slate-450">Bypasses relational properties to write document rows</p>
+                      </div>
+
+                      <div className="bg-slate-950 p-3 rounded border border-slate-850 font-mono text-[10px] text-slate-350 space-y-1">
+                        <div><strong>_id</strong>: <span className="text-yellow-450">ObjectId("65f928e1cda6209e7c331a99")</span></div>
+                        <div><strong>appointmentId</strong>: <span className="text-emerald-400">1</span> (Relational context check validation)</div>
+                        <div><strong>patientName</strong>: "Jane Doe"</div>
+                        <div><strong>medication</strong>: "Paracetamol"</div>
+                        <div><strong>dosage</strong>: "500gm, twice daily after food"</div>
+                        <div><strong>doctorNotes</strong>: "Regular medicine. Consult within 2 weeks if chest pain aggregates."</div>
+                      </div>
+
+                      <div className="bg-emerald-500/10 border border-emerald-500/30 p-3 rounded-lg text-[11px] text-emerald-300 flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                        <div>
+                          <strong className="block text-white">Document persisted successfully!</strong>
+                          <span>Relational state updated to Completed in MySQL database.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
