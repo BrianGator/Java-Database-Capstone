@@ -7,6 +7,18 @@ These deliverables are derived directly from your GitHub repository: `https://gi
 
 ---
 
+## 🔑 PRE-SEEDED SYSTEM LOGINS & SECURE CREDENTIALS
+
+To support instant walkthroughs and peer evaluation, the Sandbox is pre-populated with these secure testing accounts. You can use these credentials to sign into the three separate interface portals:
+
+| Portal Role | Email / Username | Password | Key Grading Verification Scenario |
+| :--- | :--- | :--- | :--- |
+| **👤 System Administrator** | `admin` | `admin@1234` | **Questions 13, 14, 15**: Doctor onboarding, shift times mapping |
+| **📑 Registered Clinic Patient** | `jane.doe@example.com` | `passJane1` | **Questions 16, 17**: Speciality lookups, non-conflicting bookings |
+| **🩺 Clinical Practitioner** | `dr.adams@example.com` | `passEmily1` | **Question 18**: Patient list reviews, MongoDB prescription writing |
+
+---
+
 ## 📋 Table of Contents
 1. [Question 1: Agile User Stories Link](#question-1-agile-user-stories-link)
 2. [Question 2: Database Schema Design Document](#question-2-database-schema-design-document)
