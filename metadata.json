@@ -1,5 +1,5 @@
 {
-  "name": "Smart Clinic Management System",
+  "name": "Java-Database-Capstone",
   "description": "A comprehensive full-stack clinic portal supporting admins, doctors, and patients with integrated database schemas, interactive stored SQL procedures, and agile documentation.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

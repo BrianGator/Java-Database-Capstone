@@ -3,7 +3,7 @@
 
 This document contains the definitive answers, links to the repository, file code, conceptual answers, database outputs, and terminal commands for your Java Capstone Project Submission. 
 
-These deliverables are derived directly from your GitHub repository: `https://github.com/BrianSMc/java-database-capstone`
+These deliverables are derived directly from your GitHub repository: `https://github.com/BrianGator/Java-Database-Capstone`
 
 ---
 
@@ -27,7 +27,7 @@ These deliverables are derived directly from your GitHub repository: `https://gi
 ---
 
 ### Question 1: Agile User Stories Link
-- **Deliverable Link**: [GitHub Repository Issues / User Stories Document](https://github.com/BrianSMc/java-database-capstone/blob/main/user_stories.md)
+- **Deliverable Link**: [GitHub Repository Issues / User Stories Document](https://github.com/BrianGator/Java-Database-Capstone/blob/main/user_stories.md)
 - **Role-Based Formatting Example**:
   > **As a** patient,  
   > **I want to** view upcoming appointments,  
@@ -36,43 +36,43 @@ These deliverables are derived directly from your GitHub repository: `https://gi
 ---
 
 ### Question 2: Database Schema Design Document
-- **Deliverable Link**: [schema-design.md Database Schema Design File](https://github.com/BrianSMc/java-database-capstone/blob/main/schema-design.md)
+- **Deliverable Link**: [schema-design.md Database Schema Design File](https://github.com/BrianGator/Java-Database-Capstone/blob/main/schema-design.md)
 - **Tables Included**: `admin`, `doctor`, `doctor_available_times`, `patient`, `appointment`, and MongoDB `prescriptions` BSON layout.
 
 ---
 
 ### Question 3: Doctor JPA Entity Source Code
-- **Deliverable Link**: [Doctor.java Model Class File](https://github.com/BrianSMc/java-database-capstone/blob/main/app/src/main/java/com/project/back_end/models/Doctor.java)
+- **Deliverable Link**: [Doctor.java Model Class File](https://github.com/BrianGator/Java-Database-Capstone/blob/main/app/src/main/java/com/project/back_end/models/Doctor.java)
 - **Implementation highlights**: Markings with `@Entity` and mapping the availability slots using JPA `@ElementCollection` and `@CollectionTable`.
 
 ---
 
 ### Question 4: Appointment Relation Entity Source Code
-- **Deliverable Link**: [Appointment.java Model Class File](https://github.com/BrianSMc/java-database-capstone/blob/main/app/src/main/java/com/project/back_end/models/Appointment.java)
+- **Deliverable Link**: [Appointment.java Model Class File](https://github.com/BrianGator/Java-Database-Capstone/blob/main/app/src/main/java/com/project/back_end/models/Appointment.java)
 - **Implementation highlights**: Configured `@ManyToOne` structural joins linking to both `Doctor` and `Patient` entities dynamically alongside `@Future` timestamp constraints on appointment times.
 
 ---
 
 ### Question 5: Doctor Controller REST Endpoints
-- **Deliverable Link**: [DoctorController.java REST API File](https://github.com/BrianSMc/java-database-capstone/blob/main/app/src/main/java/com/project/back_end/controllers/DoctorController.java)
+- **Deliverable Link**: [DoctorController.java REST API File](https://github.com/BrianGator/Java-Database-Capstone/blob/main/app/src/main/java/com/project/back_end/controllers/DoctorController.java)
 - **Implementation highlights**: Exposes a path tracking `/availability/{user}/{doctorId}/{date}/{token}` through `ResponseEntity<List<String>>` to dynamically filter remaining free slots.
 
 ---
 
 ### Question 6: Appointment Service Business Layer
-- **Deliverable Link**: [AppointmentService.java File](https://github.com/BrianSMc/java-database-capstone/blob/main/app/src/main/java/com/project/back_end/services/AppointmentService.java)
+- **Deliverable Link**: [AppointmentService.java File](https://github.com/BrianGator/Java-Database-Capstone/blob/main/app/src/main/java/com/project/back_end/services/AppointmentService.java)
 - **Implementation highlights**: Includes the validation sequence checks checking practitioner availability, saving bookings on success, and listing active items via date ranges.
 
 ---
 
 ### Question 7: Document-based Prescription Controller
-- **Deliverable Link**: [PrescriptionController.java NoSQL Endpoints File](https://github.com/BrianSMc/java-database-capstone/blob/main/app/src/main/java/com/project/back_end/controllers/PrescriptionController.java)
+- **Deliverable Link**: [PrescriptionController.java NoSQL Endpoints File](https://github.com/BrianGator/Java-Database-Capstone/blob/main/app/src/main/java/com/project/back_end/controllers/PrescriptionController.java)
 - **Implementation highlights**: Implements `@PostMapping` validation, verifies token legitimacy, writes document metadata to MongoDB collection, and sets relational appointment statuses dynamically.
 
 ---
 
 ### Question 8: Patient Database Repository Layer
-- **Deliverable Link**: [PatientRepository.java File](https://github.com/BrianSMc/java-database-capstone/blob/main/app/src/main/java/com/project/back_end/repositories/PatientRepository.java)
+- **Deliverable Link**: [PatientRepository.java File](https://github.com/BrianGator/Java-Database-Capstone/blob/main/app/src/main/java/com/project/back_end/repositories/PatientRepository.java)
 - **Implementation highlights**: 
   ```java
   public interface PatientRepository extends JpaRepository<Patient, Long> {
@@ -84,19 +84,19 @@ These deliverables are derived directly from your GitHub repository: `https://gi
 ---
 
 ### Question 9: Token Verification Security Service
-- **Deliverable Link**: [TokenService.java Security File](https://github.com/BrianSMc/java-database-capstone/blob/main/app/src/main/java/com/project/back_end/services/TokenService.java)
+- **Deliverable Link**: [TokenService.java Security File](https://github.com/BrianGator/Java-Database-Capstone/blob/main/app/src/main/java/com/project/back_end/services/TokenService.java)
 - **Implementation highlights**: Implements cryptographically sound token issues using configured credentials in `application.properties` and parses subjects to perform security context checks.
 
 ---
 
 ### Question 10: Doctor Profile Query Service
-- **Deliverable Link**: [DoctorService.java File](https://github.com/BrianSMc/java-database-capstone/blob/main/app/src/main/java/com/project/back_end/services/DoctorService.java)
+- **Deliverable Link**: [DoctorService.java File](https://github.com/BrianGator/Java-Database-Capstone/blob/main/app/src/main/java/com/project/back_end/services/DoctorService.java)
 - **Implementation highlights**: Extracts doctor availabilities by comparing overall shifts with date queries, and implements structured credentials checking returning JSON objects.
 
 ---
 
 ### Question 11: Multi-Stage Container Dockerfile
-- **Deliverable Link**: [Dockerfile Build Sequence File](https://github.com/BrianSMc/java-database-capstone/blob/main/Dockerfile)
+- **Deliverable Link**: [Dockerfile Build Sequence File](https://github.com/BrianGator/Java-Database-Capstone/blob/main/Dockerfile)
 - **Structure Pattern**:
   ```dockerfile
   # Stage 1: Build the Java executable
@@ -116,7 +116,7 @@ These deliverables are derived directly from your GitHub repository: `https://gi
 ---
 
 ### Question 12: CI/CD GitHub Actions Compilation Workflow
-- **Deliverable Link**: [GitHub Actions maven.yml CI Workflow File](https://github.com/BrianSMc/java-database-capstone/blob/main/.github/workflows/maven.yml)
+- **Deliverable Link**: [GitHub Actions maven.yml CI Workflow File](https://github.com/BrianGator/Java-Database-Capstone/blob/main/.github/workflows/maven.yml)
 - **Trigger Events**: Runs on standard `push` or `pull_request` branches automatically.
 
 ---
